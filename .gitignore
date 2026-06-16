@@ -1,16 +1,32 @@
-# Compiled class file
+### --- Java & Build Tools (Maven/Gradle/NetBeans) ---
 *.class
-
-# Log file
-*.log
-
-# BlueJ files
 *.ctxt
-
-# Mobile Tools for Java (J2ME)
 .mtj.tmp/
+target/
+build/
+bin/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
+hs_err_pid*
+replay_pid*
+HELP.md
+.mvn/
 
-# Package Files #
+### --- Node.js & Web ---
+node_modules/
+.pnp
+.pnp.js
+dist/
+.next/
+.cache/
+
+### --- Pacotes & Arquivos Compactados ---
 *.jar
 *.war
 *.nar
@@ -19,17 +35,32 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+### --- Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-HELP.md
-target/
-.mvn/
-!**/src/main/**/target/
-!**/src/test/**/target/
+### --- Variáveis de Ambiente (Segurança!) ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
 
-### STS ###
+### --- IDEs (IntelliJ, VS Code, Eclipse, NetBeans) ---
+# IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# VS Code
+.vscode/
+
+# Eclipse / STS
 .apt_generated
 .classpath
 .factorypath
@@ -38,21 +69,17 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
+# NetBeans
 /nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+# Outros editores
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+### --- Sistema Operacional ---
+.DS_Store
+Thumbs.db
+desktop.ini
