@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.util.Optional;
+import java.util.List;
 
 public interface ReceivableRepository extends JpaRepository<Receivable, Long> {
 
@@ -15,4 +16,7 @@ public interface ReceivableRepository extends JpaRepository<Receivable, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT r FROM Receivable r WHERE r.id = :id")
     Optional<Receivable> findByIdForUpdate(@Param("id") Long id);
+
+    @Query("SELECT r FROM Receivable r WHERE r.status = 'PENDING'")
+    List<Receivable> listPending();
 }
