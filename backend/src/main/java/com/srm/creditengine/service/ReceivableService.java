@@ -6,6 +6,20 @@ import com.srm.creditengine.model.*;
 import com.srm.creditengine.repository.*;
 import com.srm.creditengine.service.pricing.PricingService;
 import lombok.RequiredArgsConstructor;
+import com.srm.creditengine.dto.PriceSimulationResponseDTO;
+import com.srm.creditengine.dto.ReceivableRequestDTO;
+import com.srm.creditengine.dto.ReceivableResponseDTO;
+import com.srm.creditengine.model.Assignor;
+import com.srm.creditengine.model.Product;
+import com.srm.creditengine.model.Receivable;
+import com.srm.creditengine.repository.AssignorRepository;
+import com.srm.creditengine.repository.CurrencyRepository;
+import com.srm.creditengine.repository.ProductRepository;
+import com.srm.creditengine.repository.ReceivableRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +53,17 @@ public class ReceivableService {
         receivable.setTermMonths(dto.getTermMonths());
         receivable.setStatus("PENDING");
 
+
+
         return mapToDTO(receivableRepository.save(receivable));
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReceivableResponseDTO> listPending() {
+        // Busca do banco e converte cada um para DTO
+        return receivableRepository.listPending().stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

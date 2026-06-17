@@ -6,9 +6,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import com.srm.creditengine.dto.PriceSimulationResponseDTO;
+import com.srm.creditengine.dto.ReceivableRequestDTO;
+import com.srm.creditengine.dto.ReceivableResponseDTO;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/receivables")
@@ -30,5 +35,11 @@ public class ReceivableController {
             @PathVariable Long id,
             @RequestParam String paymentCurrency) {
         return ResponseEntity.ok(receivableService.simulate(id, paymentCurrency));
+    }
+
+    @GetMapping("/pending")
+    @Operation(summary = "Lista todos os recebíveis com status PENDING")
+    public ResponseEntity<List<ReceivableResponseDTO>> listPending() {
+        return ResponseEntity.ok(receivableService.listPending());
     }
 }
