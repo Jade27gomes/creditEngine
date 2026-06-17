@@ -1,62 +1,55 @@
-export type CurrencyCode = 'BRL' | 'USD';
-export type StatusType = 'PENDING' | 'LIQUIDATED';
-export type ReceivableType = 'DUPLICATA' | 'CHEQUE';
+export enum ReceivableType {
+  DUPLICATA = 'DUPLICATA',
+  CHEQUE = 'CHEQUE',
+}
 
-export interface ExchangeRate {
-  id?: number;
-  fromCurrency: string;
-  toCurrency: string;
-  rate: number;
-  createdAt: string;
+export enum ReceivableStatus {
+  PENDING = 'PENDING',
+  LIQUIDATED = 'LIQUIDATED',
+}
+
+export enum Currency {
+  BRL = 'BRL',
+  USD = 'USD',
 }
 
 export interface Receivable {
-  id: number;
-  faceValue: number;
-  dueDate: string;
-  currencyCode: CurrencyCode;
-  status: StatusType;
-  assignorName: string; 
-  productName: string;
+  id: string | number;
+  value: number; 
+  dueDate: string; 
+  type: ReceivableType;
+  status: ReceivableStatus;
+  originalCurrency: Currency;
+  paymentCurrency?: Currency;
+  termDays?: number; 
+  spreadApplied?: number; 
+  calculatedPresentValue?: number; 
+  convertedValue?: number; 
+  exchangeRateUsed?: number; 
+  creationDate?: string;
+  liquidationDate?: string;
 }
 
-export interface ReceivableRequest {
-  assignorId: number;
-  productId: number;
-  currencyCode: CurrencyCode;
-  faceValue: number;
-  dueDate: string;
-  termMonths: number;
+export interface ExchangeRate {
+  id?: string | number;
+  date: string; 
+  rate: number; 
+  sourceCurrency: Currency;
+  targetCurrency: Currency;
+  isCustom?: boolean;
+}
+
+export interface PricingStrategy {
+  type: ReceivableType;
+  baseMonthlyRate: number; 
+  spread: number; 
 }
 
 export interface SimulationResult {
-  faceValue: number;
-  originalCurrency: string;
-  paymentCurrency: string;
   presentValue: number;
-  discount: number;
+  termDays: number;
+  appliedMonthlyRate: number;
+  convertedValue: number;
   exchangeRateUsed: number;
-  productName: string;
-  termMonths: number;
-}
-
-export interface StatementEntry {
-  transactionId: number;
-  date: string;
-  assignorName: string;
-  productName: string;
-  faceValue: number;
-  originalCurrency: string;
-  paymentCurrency: string;
-  presentValue: number;
-  discount: number;
-  exchangeRateUsed: number;
-}
-
-export interface StatementResponse {
-  content: StatementEntry[];
-  page: number;
-  size: number;
-  totalElements: number;
-  totalPages: number;
+  crossCurrencyApplied: boolean;
 }
